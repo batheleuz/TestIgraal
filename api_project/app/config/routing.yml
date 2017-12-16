@@ -1,3 +1,11 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+commissions:
+    type:     rest
+    resource: AppBundle\Controller\CommissionController
+
+users:
+    type:     rest
+    resource: AppBundle\Controller\UserController
