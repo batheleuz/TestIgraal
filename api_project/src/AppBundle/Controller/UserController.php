@@ -32,10 +32,7 @@ class UserController extends Controller
 
         $formatted = [];
         foreach ($users as $user) {
-            $formatted[] = [
-                'id' => $user->getId(),
-                'name' => $user->getName(),
-            ];
+            $formatted[] = $this->format($user);
         }
 
         return new JsonResponse($formatted);
@@ -54,12 +51,14 @@ class UserController extends Controller
         if (empty($user))
             return new JsonResponse(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
 
+        return new JsonResponse($this->format($user));
+    }
 
-        $formatted = [
+    private function format( User $user ){
+        return  [
             'id' => $user->getId(),
             'name' => $user->getName(),
         ];
-
-        return new JsonResponse($formatted);
     }
+
 }

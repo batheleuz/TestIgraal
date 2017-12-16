@@ -28,18 +28,7 @@ class CommissionController extends Controller
             ->findAll();
         /* @var $commissions Commission[] */
 
-        $formatted = [];
-        foreach ($commissions as $commission) {
-            $formatted[] = [
-                'id' => $commission->getId(),
-                'date' => $commission->getDate()->format("Y-m-d"),
-                'cashback' => $commission->getCashback(),
-                'marchant' => $commission->getMerchant()->getName(),
-                'user' => $commission->getUser()->getName()
-            ];
-        }
-
-        return new JsonResponse($formatted);
+        return new JsonResponse($this->format($commissions));
         
     }
 
@@ -55,8 +44,14 @@ class CommissionController extends Controller
         if ( count( $commissions) === 0  )
             return new JsonResponse(['message' => 'No commission for this user'], Response::HTTP_NOT_FOUND);
 
+
+        return new JsonResponse( $this->format($commissions) );
+    }
+
+    private function format( $commissions ){
+
         $formatted = [];
-        foreach ($commissions as $commission) {
+        foreach ($commissions as $commission ) {
             $formatted[] = [
                 'id' => $commission->getId(),
                 'date' => $commission->getDate()->format("Y-m-d"),
@@ -66,7 +61,7 @@ class CommissionController extends Controller
             ];
         }
 
-        return new JsonResponse($formatted);
+        return $formatted ;
     }
 
 }
