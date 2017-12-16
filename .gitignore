@@ -1,0 +1,17 @@
+/api_project/.web-server-pid
+/api_project/app/config/parameters.yml
+/api_project/build/
+/api_project/phpunit.xml
+/api_project/var/*
+!/var/cache
+/var/cache/*
+!var/cache/.gitkeep
+!/var/logs
+/api_project/var/logs/*
+!var/logs/.gitkeep
+!/var/sessions
+/api_project/var/sessions/*
+!var/sessions/.gitkeep
+!var/SymfonyRequirements.php
+/api_project/vendor/
+/api_project/web/bundles/
