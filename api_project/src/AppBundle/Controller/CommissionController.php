@@ -21,6 +21,7 @@ class CommissionController extends Controller
     /**
      * @Get("/commissions")
      */
+
     public function getCommissionsAction( Request $request ){
 
         $commissions = $this->get('doctrine.orm.entity_manager')
