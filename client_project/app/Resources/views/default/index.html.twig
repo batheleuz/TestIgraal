@@ -6,24 +6,25 @@
     </div>
     <div class="w3-container w3-border w3-padding-large" style="margin: 20px 20% ;">
         <div>
-            <p><b><label>User</label></b></p>
-            <select type="text" class="w3-border w3-input">
-                <option>-- choose a value --</option>
+            <p id="label_user"><b><label> <i class="fa fa-fw fa-user"></i> User</label></b></p>
+            <select type="text"  class="w3-border w3-input" id="select_user">
+                <option>-- Select a user --</option>
             </select>
         </div>
         <hr/>
         <div>
             <table class="w3-table-all">
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Points</th>
-                </tr>
-                <tr>
-                    <td>Jill</td>
-                    <td>Smith</td>
-                    <td>50</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Marchant</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>CashBack</th>
+                    </tr>
+                </thead>
+               <tbody>
+                    <tr><td class="w3-center" colspan="4">Be sure to select a user.</td></tr>
+               </tbody>
             </table>
         </div>
     </div>
@@ -31,5 +32,26 @@
 {% endblock %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('css/w3css.css') }}" />
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                method: "GET",
+                url: "{{ web_service_address }}/users",
+                dataType: "json" ,
+                beforeSend: function (){
+                    $("#label_user").append("<i class='fa fa-fw fa-refresh fa-spin'> </i>");
+                }
+            }).done( function( data ) {
+                var html="";
+                   $.each( data , function(key ,value){
+                       html += "<option id='"+value.id+"'> "+ value.name +" </option>";
+                   });
+                 $("#select_user").append(html);
+            });
+        });
+    </script>
 {% endblock %}
