@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="w3-container w3-teal">
+    <div class="w3-container w3-deep-orange">
         <h1>Test iGraal</h1>
     </div>
-    <div class="w3-container w3-border w3-padding-large" style="margin: 20px 20% ;">
+
+    <div class="w3-container w3-border w3-border-deep-orange w3-padding-large" style="margin: 20px 20% ;">
         <div>
-            <p id="label_user"><b><label> <i class="fa fa-fw fa-user"></i> User</label></b></p>
+            <p id="label_user"><b><label> <i class="fa fa-fw fa-users"></i> Users </label></b></p>
             <select type="text"  class="w3-border w3-input" id="select_user">
-                <option>-- Select a user --</option>
+                <option> -- Select a user -- </option>
             </select>
         </div>
         <hr/>
@@ -28,6 +29,15 @@
                </tbody>
             </table>
         </div>
+        <div class="w3-panel w3-pale-blue w3-display-container w3-small">
+        <span onclick="this.parentElement.style.display='none'"
+              class="w3-button w3-display-topright">X</span>
+            <h3> <i class="fa fa-fw fa-info-circle"></i>info</h3>
+            <hr>
+            <p> Web Service Address : <a href="{{ web_service_address }}">{{ web_service_address }}</a></p>
+            <p> - api_project must be running on host port 8000
+            <p> - If it doesn't, replace by the right address in <code>client_project/app/config/config.yml</code></p>
+        </div>
     </div>
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
 {% endblock %}
@@ -36,6 +46,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('css/w3css.css') }}" />
 {% endblock %}
+
 {% block javascripts %}
     <script>
         $(document).ready(function(){
