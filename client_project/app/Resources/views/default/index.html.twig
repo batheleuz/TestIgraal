@@ -13,17 +13,18 @@
         </div>
         <hr/>
         <div>
-            <table class="w3-table-all">
+            <table class="w3-table-all w3-hoverable" >
                 <thead>
                     <tr>
+                        <th> <i class="fa fa-user"></i> user</th>
                         <th>Marchant</th>
                         <th>Date</th>
                         <th>Time</th>
-                        <th>CashBack</th>
+                        <th> <i class="fa fa-euro"></i> CashBack</th>
                     </tr>
                 </thead>
-               <tbody>
-                    <tr><td class="w3-center" colspan="4">Be sure to select a user.</td></tr>
+               <tbody id="commission_tbody">
+                    <tr><td class="w3-center" colspan="5">Be sure to select a user.</td></tr>
                </tbody>
             </table>
         </div>
@@ -43,15 +44,43 @@
                 url: "{{ web_service_address }}/users",
                 dataType: "json" ,
                 beforeSend: function (){
-                    $("#label_user").append("<i class='fa fa-fw fa-refresh fa-spin'> </i>");
+                    $("#label_user").append("<i class='fa fa-fw fa-refresh fa-spin'></i>");
                 }
             }).done( function( data ) {
                 var html="";
                    $.each( data , function(key ,value){
-                       html += "<option id='"+value.id+"'> "+ value.name +" </option>";
+                       html += "<option value='"+value.id+"'> "+ value.name +" </option>";
                    });
                  $("#select_user").append(html);
+                 $(".fa-refresh").remove();
+            }).fail(function() {
+                console.log( "Server Error" );
             });
+            $("select#select_user").change( function () {
+               var id_user =  this.value ;
+                $("#label_user").append("<i class='fa fa-fw fa-refresh fa-spin'></i>");
+                $("#commission_tbody").html();
+                $.getJSON(
+                    "{{ web_service_address }}/commissions/"+id_user ,
+                    function( commissions ) {
+                        var html="";
+                        $.each( commissions , function(key ,value){
+                            html += "<tr> "+
+                                    "<td>"+ value.user +"</td>" +
+                                    "<td>"+ value.marchant +"</td>" +
+                                    "<td>"+ value.date +"</td>" +
+                                    "<td>"+ value.heure +"</td>" +
+                                    "<td>"+ value.cashback + " € </td>" +
+                                +" </tr>";
+                        });
+
+                        $("#commission_tbody").html(html);
+                        $(".fa-refresh").remove();
+                    }
+                ).fail(function() {
+                    console.log( "Server Error" );
+                })
+            })
         });
     </script>
 {% endblock %}
