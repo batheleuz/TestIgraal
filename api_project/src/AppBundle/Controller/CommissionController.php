@@ -56,7 +56,7 @@ class CommissionController extends Controller
             $formatted[] = [
                 'id' => $commission->getId(),
                 'date' => $commission->getDate()->format("Y-m-d"),
-                'heure'=> $commission->getDate()->format("h:i:s"),
+                'heure'=> $commission->getDate()->format("h:i"),
                 'cashback' => $commission->getCashback(),
                 'marchant' => $commission->getMerchant()->getName(),
                 'user' => $commission->getUser()->getName()
