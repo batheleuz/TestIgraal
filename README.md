@@ -23,5 +23,9 @@ TEST IGRAAL
 
 - Techno 
     + Symfony 3.4
-        
-     
+
+Simple client application test url : / 
+
+- Requirement 
+    + api_project must be running on port 8000
+    + else, define the url in config.yml
